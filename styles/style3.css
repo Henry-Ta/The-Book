@@ -1,0 +1,198 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: rgb(240, 242, 245);
+}
+
+
+#blueBar {
+    background-color: #3c5a99;
+}
+
+#headerProfile{
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+
+    height: 70px;
+    color: rgb(255, 255, 255); 
+}
+#headerProfile #logo{
+    grid-column: 1;
+    grid-row: 1;
+
+    font-size: 45px;
+    font-weight: bold;
+
+}
+#headerProfile #search{
+    grid-column: 2;
+    grid-row: 1;
+    margin-left: 10px;
+    text-align: center;
+}
+#searchBox {
+    width: 160px;
+    height: 30px;
+    border-radius: 15px;
+    border: none;
+    font-size: 14px;
+    background-image: url(social_images/search.png);
+    background-repeat: no-repeat;
+    background-position: right;
+    text-align: center;
+}
+#headerProfile #profileImage{
+    grid-column: 3;
+    grid-row: 1;
+
+    margin-left: 10px;
+    margin-top: 3px;
+    text-align: right;
+}
+#headerProfile img{
+    width: 55px;
+    border-radius: 50%;
+}
+
+
+@media(min-width: 810px){
+    #headerProfile {
+        max-width: 1280px;
+        margin: auto;
+    }
+
+    #searchBox {
+        width: 400px;
+    }
+
+    #backgroundCover{
+        background-color: white;
+    }
+
+
+    #bodyTimeline {
+        width: 1280px;
+        min-height: 800px;
+        margin: auto;        
+        text-align: center;
+
+        margin-top: 20px;
+
+        display: grid;
+        grid-template-columns: 1fr 2fr 1fr;
+    }
+    #bodyTimeline #leftContent{
+        grid-column: 1;
+        grid-row: 1;
+
+        margin-right: 10px;
+        height: 630px;
+        border-radius: 8px;
+        align-items: center;
+
+        font-size: 22px;
+        font-weight: 22px;
+    }
+    
+    #bodyTimeline #centerContent {
+        grid-column: 2;
+        grid-row: 1;
+
+        margin-left: 10px;
+        margin-right: 10px;
+        min-height: 800px;
+    }
+
+    #bodyTimeline #rightContent {
+        grid-column: 3;
+        grid-row: 1;
+
+        margin-left: 10px;
+        font-size: 22px;
+    }
+
+    /*-----------------------------------------------------Left Contents*/
+    #bodyTimeline #leftContent img {
+        width: 150px;
+        border-radius: 50%;
+    }
+    /*-----------------------------------------------------Right Contents*/
+    #postForm {
+        background-color: white;
+        border-radius: 8px;
+        height: 210px;
+
+        display: grid;
+        grid-template-rows: 1fr 1fr;
+    }
+    textarea{
+
+        height: 150px;
+        border: none;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-size: 22px;
+
+        border-radius: 8px;
+        border: none;
+
+        margin-top: 0px;
+    }
+
+    #postButton {
+
+        margin-left: 10px;
+        margin-right: 10px;
+        border-radius: 8px;
+        background-color: rgb(24, 119, 242);
+        color: white;
+
+        font-size: 22px;
+        height: 40px;
+        border: none;
+        margin-top: 10px;
+        text-align: center;
+    }
+    #postButton:hover {
+        background-color: rgb(23,113,230);
+    }
+
+    #postBackground {
+        margin-top: 20px;
+        background-color: white;
+        border-radius: 8px;
+        padding: 10px;
+    }
+    #userBar {
+        display: grid;
+        grid-template-columns: max-content max-content;
+    }
+    #userBar #userImg {
+        grid-column: 1;
+        grid-row: 1/3;
+    }
+    #userBar #userName {
+        grid-column: 2;
+        grid-row: 1;
+        text-align: left;
+        font-size: 22px;
+        font-weight: bold;
+        margin-left: 10px;
+        margin-top: 5px;
+    }
+    #userBar #date {
+        grid-row: 2;
+        grid-column: 2;
+        margin-left: 10px;
+        margin-bottom: 5px;
+        font-size: 18px;
+        color: rgb(113, 115, 107);
+    }
+    #postBackground img {
+        width: 75px;
+        border-radius: 50%;
+    }
+    #postContent {
+        margin-top: 10px;
+        text-align: left;
+    }
+}

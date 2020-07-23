@@ -1,0 +1,388 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #e9ebee;
+}
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.failure-message, .firstname-message, .lastname-message
+{
+    color:deeppink;
+    font-style: italic;
+
+    animation-name: glow;
+    animation-duration: .5s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+
+    text-align: center;
+    font-size: 18px;
+}
+@keyframes glow
+{
+    from {
+        text-shadow: 0 0 1px rgba(255,0,0,.2);
+    }
+
+    to {
+        text-shadow: 0 0 4px rgba(255,0,0,.6);
+    }
+}
+
+
+
+/*------------------ Log In Page */
+#headerLogin, #headerSignup {
+    display: grid;
+    grid-template-columns: max-content max-content;
+    align-items: center;
+
+    height: 100px;
+    background-color: #3c5a99;
+    color: rgb(255, 255, 255);
+    padding: 4px;
+}
+#headerLogin #title, #headerSignup #title{   
+    grid-column: 1;
+    grid-row: 1;
+
+    font-size: 70px;
+    font-weight: bold;
+    padding: 4px;
+    margin-left: auto;
+}
+#headerLogin #signup{
+    grid-column: 2;
+    grid-row: 1;
+
+    font-size: 20px;
+    font-weight: bold;
+    background-color: rgb(66, 183, 42);
+    width: auto;
+    text-align: center;
+    padding: 10px;
+    border-radius: 4px;
+    margin-left: 10px;
+    margin-top:11px;
+}
+#headerLogin #signup:hover{
+    background-color: rgb(54,164,32);
+}
+
+#mainLogin {
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
+    align-items: center;
+
+    background-color: white;
+    border-radius: 4px;
+    width: 400px;
+    height: 460px;
+    margin: auto;
+    margin-top: 100px;
+    text-align: center;
+    padding: 10px;
+}
+#mainLogin #title{
+    grid-column: 1;
+    grid-row: 1;
+
+    font-size: 30px;
+}
+#mainLogin #ema{
+    grid-column: 1;
+    grid-row: 2;
+
+    margin-top: 38px;
+    height: 80px;
+
+}
+#mainLogin #pass{
+    grid-column: 1;
+    grid-row: 3;
+
+    height: 80px;
+}
+#email, #password{
+    width: 400px;
+    height: 40px;
+    font-size: 18px;
+    border: solid 1px rgb(198, 201, 205);
+    border-radius: 3px;
+    margin-right: 5px;
+}
+#mainLogin #btn{
+    grid-column: 1;
+    grid-row: 4;
+
+}
+#buttonLogin{
+    width: 400px;
+    height: 55px;
+    border: none;
+    border-radius: 5px;
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+    background-color: rgb(66, 103, 178);
+    margin-top: 10px;
+    margin-right: 5px;
+}
+#buttonLogin:hover{
+    background-color:rgb(54,88,153);
+}
+#mainLogin #or{
+    grid-column: 1;
+    grid-row: 5;
+    font-size: 15px;
+
+    margin-top: 30px;
+}
+#mainLogin #signup2{
+    grid-column: 1;
+    grid-row: 6;
+
+    font-size: 20px;
+    font-weight: bold;
+    background-color: rgb(66, 183, 42);
+    color: white;
+    width: 300px;
+    margin-left: 42px;
+    margin-bottom: 25px;
+    text-align: center;
+    padding: 10px;
+    border-radius: 4px;
+
+    margin-top: 30px;
+}
+#mainLogin #signup2:hover{
+    background-color: rgb(54,164,32);
+}
+
+/*------------------ Sign Up Page */
+#headerSignup #login{
+    grid-column: 2;
+    grid-row: 1;
+
+    font-size: 20px;
+    font-weight: bold;
+    background-color: rgb(66, 103, 178);
+    width: auto;
+    text-align: center;
+    padding: 10px;
+    border-radius: 4px;
+    margin-left: 10px;
+    margin-top:11px;
+    border: solid 1px;
+}
+#headerSignup #login:hover{
+    background-color: rgb(54,88,153);
+}
+
+#mainSignup {
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    align-items: center;
+
+    width: 420px;
+    height: 460px;
+    margin: auto;
+    margin-top: 20px;
+    text-align: center;
+    padding: 10px;
+}
+#mainSignup #title{
+    grid-column: 1;
+    grid-row: 1;
+
+    color: rgb(29, 33, 41);
+    font-size:40px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    margin-top: -10px;
+}
+#mainSignup #caption{
+    grid-column: 1;
+    grid-row: 2;
+
+    color: rgb(75, 79, 86);
+    font-size:25px;
+    margin-bottom: 20px;
+}
+#mainSignup #name{
+    grid-column: 1;
+    grid-row: 3;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    margin-bottom: 20px;
+}
+#mainSignup #name #fname{
+    grid-column: 1;
+    grid-row: 1;
+}
+#mainSignup #name #lname{
+    grid-column: 2;
+    grid-row: 1;
+}
+#firstName, #lastName{
+    width: 190px;
+    height: 40px;
+    font-size: 18px;
+    border: solid 1px rgb(198, 201, 205);
+    border-radius: 3px;
+    margin-right: 5px;
+}
+#mainSignup #ema{
+    grid-column: 1;
+    grid-row: 4;
+    margin-bottom: 20px;
+}
+#mainSignup #pass{
+    grid-column: 1;
+    grid-row: 5;
+    margin-bottom: 20px;
+}
+#mainSignup #birthday{
+    grid-column: 1;
+    grid-row: 6;
+
+    font-size: 25px;
+    font-weight: bold;
+    color: rgb(144, 148, 156);
+    margin-bottom: 10px;
+}
+#mainSignup #dmy{
+    grid-column: 1;
+    grid-row: 7;
+    margin-bottom: 10px;
+
+    display: grid;
+    grid-template-columns: 80px 80px 0px ;
+    align-items: center;
+    margin-left: 105px;
+    font-size: 20px;
+}
+#mainSignup #dmy #m{
+    grid-column: 1;
+    grid-row: 1;
+}
+#mainSignup #dmy #d{
+    grid-column: 2;
+    grid-row: 1;
+}
+#mainSignup #dmy #y{
+    grid-column: 3;
+    grid-row: 1;
+    margin-left: -11px;
+}
+#mainSignup #gender{
+    grid-column: 1;
+    grid-row: 8;
+
+    font-size: 25px;
+    font-weight: bold;
+    color: rgb(144, 148, 156);
+    margin-bottom: 10px;
+}
+#mainSignup #genderSelection{
+    grid-column: 1;
+    grid-row: 9;
+
+    display: grid;
+    grid-template-columns: 80px 100px 80px;
+    align-items: center;
+    margin-bottom: 20px;
+    margin-left: 70px;
+    font-size: 20px;
+}
+#mainSignup #genderSelection #male{
+    grid-column: 1;
+    grid-row: 1;
+}
+#mainSignup #genderSelection #female{
+    grid-column: 2;
+    grid-row: 1;
+}
+#mainSignup #genderSelection #other{
+    grid-column: 3;
+    grid-row: 1;
+}
+#mainSignup #policy{
+    grid-column: 1;
+    grid-row: 10;
+    width: 380px;
+    margin-bottom: 10px;
+    margin-left: 20px;
+}
+#mainSignup #signup{
+    grid-column: 1;
+    grid-row: 11;
+    margin-bottom: 20px;
+}
+#buttonSignup{
+    width: 400px;
+    height: 55px;
+    border: none;
+    border-radius: 5px;
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+    background-color: rgb(66, 183, 42);
+    margin-top: 10px;
+}
+#buttonSignup:hover{
+    background-color: rgb(54,164,32);
+}
+
+
+/* ------------------------------desktop layout -------------------------------*/
+@media(min-width: 810px){
+    .firstname-message {
+        padding-left: 85px;
+    }
+    .lastname-message {
+        padding-right: 100px;
+    }
+    /*------------------ Log In Page */
+    
+    #headerLogin #title, #headerSignup #title{   
+        margin-left: 110px;
+    }
+
+    #mainLogin {
+        width: 800px;
+    }
+    #mainLogin #signup2{
+        width: 300px;
+        margin-left: 242px;
+        margin-bottom: 25px;
+    }
+    
+    /*------------------ Sign Up Page */
+    #mainSignup {
+        width: 600px;
+    }
+    #mainSignup #title{
+        margin-top: -15px;
+        font-size:50px;
+    }
+    #firstName {
+        margin-left: 88px;
+    }#lastName {
+        margin-right: 94px;
+    }
+    #mainSignup #genderSelection{
+        margin-left: 160px;
+    }
+    #mainSignup #dmy{
+        margin-left: 195px;
+    }
+    #mainSignup #policy{
+        margin-left: 110px;
+    }
+
+}
