@@ -1,3 +1,18 @@
+<?php
+
+    session_start();
+        
+    include("../classes/connect.php");
+    include("../classes/login.php");
+    include("../classes/user.php");
+    include("../classes/post.php");
+
+    $login = new Login();
+    $user_data = $login->check_login($_SESSION['thebook_userid']);
+
+?>
+
+<!----------------------------------------HTML------------------------------------------->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,21 +23,15 @@
 </head>
 <body>
     <header>
-        <div id="blueBar">
-            <div id="headerProfile">
-                <div id="logo">thebook</div>
-                <div id="search"><input type="text" id="searchBox" placeholder="Search Thebook">&nbsp&nbsp</div>
-                <div id="profileImage"><img src="../images/selfie.jpg"></div>
-            </div>
-        </div>
+        <?php include("topbar.php")?>
     </header>
     <main>
 
         <div id="bodyTimeline">
             <div id="leftContent">
-                <img id="userImg" src="../images/selfie.jpg">
+                <a href="profile.php"><img id="userImg" src="../images/selfie.jpg"></a>
                 <br>
-                <div id="userName">Merrie An</div>
+                <div id="userName"><?php echo $user_data['first_name'] . " ". $user_data['last_name'];?></div>
             </div>
             <div id="centerContent">
                 <div id="postForm">

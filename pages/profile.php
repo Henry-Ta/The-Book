@@ -6,8 +6,8 @@
     include("../classes/user.php");
     include("../classes/post.php");
 
-    $default_image = '';
-    $default_cover = '';
+    $profile_image = '';        #default profile image
+    $background_image = '';     #default cover image
 
     $login = new Login();
     $user_data = $login->check_login($_SESSION['thebook_userid']);
@@ -32,7 +32,7 @@
                 $user = new User();
                 $data_user = $user->get_data($p['userid']);
 
-                $avatar_user = get_default_avatar($data_user['gender']);
+                $avatar_user = get_profile_image($data_user['profile_image'],$data_user['gender']);
 
                 echo '<div id="postBackground">
                         <div id="postArea">
@@ -52,11 +52,25 @@
         }
     }
 
-    function get_default_avatar($gender){
-        if($gender == "Male"){
-            return 'user1.jpg';
-        }else {
-            return 'user6.jpg';
+    function get_profile_image($image,$gender){
+        //global $user_data;
+        if(file_exists($image)){
+            return $image;
+        }else{
+            if($gender == "Male"){
+                return '../images/user1.jpg';
+            }else {
+                return '../images/user6.jpg';
+            }
+        }
+        
+    }
+
+    function get_background_image($image){
+        if(file_exists($image)){
+            return $image;
+        }else{
+            return "../images/default-cover.jpg";
         }
     }
 
@@ -67,7 +81,7 @@
         if($friends){
             foreach($friends as $f){
                 echo '<div id="friend">
-                        <img id="friendImg" src="../images/' . get_default_avatar($f['gender']) . '">
+                        <img id="friendImg" src="'. get_profile_image($f['profile_image'],$f['gender']) . '">
                         <div id="friendName">' . $f['first_name'] . " " . $f['last_name'] . '</div>
                     </div>';
             }
@@ -75,8 +89,11 @@
 
     }
 
-    $default_image = get_default_avatar($gender_user);
-    $default_cover = "default-cover.jpg";
+    $profile_image = get_profile_image($user_data['profile_image'],$gender_user);
+    $background_image = get_background_image($user_data['cover_image']);
+
+    $_SESSION['profile_image'] = $profile_image;        // pass value to topbar in other pages
+
 ?>
 
 <!----------------------------------------HTML------------------------------------------->
@@ -90,27 +107,18 @@
 </head>
 <body>
     <header>
-        <div id="blueBar">
-            <div id="headerProfile">
-                <div id="logo">thebook</div>
-                <div id="search"><input type="text" id="searchBox" placeholder="Search Thebook">&nbsp&nbsp</div>
-                <div id="profileImage">
-                    <img src="../images/<?php echo $default_image ?>">
-                    <a href="logout.php">Log Out</a>
-                </div>
-            </div>
-        </div>
+        <?php include("topbar.php")?>
     </header>
     <main>
         <div id="backgroundCover">
             <div id="coverArea">
-                <img id="coverPhoto" src="../images/<?php echo $default_cover ?>">
-                <img id="profilePhoto" src="../images/<?php echo $default_image ?>">
+                <img id="coverPhoto" src="<?php echo $background_image ?>">
+                <img id="profilePhoto" src="<?php echo $profile_image ?>">
                 <br>
                 <div id="profileName"><?php echo $user_data['first_name'] . " " . $user_data['last_name']?></div>
                 <br>
                 <div id="menuButtons">
-                    <div id="timeline">Timeline</div> 
+                    <div id="timeline"><a href="timeline.php">Timeline</a></div> 
                     <div id="about">About</div> 
                     <div id="friends">Friends</div> 
                     <div id="photos">Photos</div> 
