@@ -1,15 +1,26 @@
 <?php
 
     class Post{
-        public function create_post($userid, $data){
-            if(isset($data['post'])){
+        public function create_post($userid, $data, $file){
+            $image = '';
+            $has_image = 0;
+
+            if(isset($data['post']) || isset($file['file']['name'])){
                 $post = addslashes($data['post']);
                 $postid = $this->create_postid();
 
-                $query = "insert into posts (postid,userid,post) values ('$postid','$userid','$post')";
+                if(isset($file['file']['name']) && ($file['file']['name']!="" && $file['file']['type']=='image/jpeg')){
+                    $image = "../uploads/post_photos/" . $file['file']['name'];
+                    move_uploaded_file($_FILES['file']['tmp_name'],$image);
+
+                    $has_image = 1;
+                }
+
+                $query = "insert into posts (postid,userid,post,image,has_image) values ('$postid','$userid','$post','$image','$has_image')";
 
                 $DB = new Database();
                 $DB->save($query);
+                return true;
             }else{
                 return false;
             }
@@ -20,6 +31,7 @@
 
             $DB = new Database();
             $result = $DB->read($query);
+
             if($result){
                 return $result;
             }else{

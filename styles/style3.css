@@ -131,7 +131,7 @@ body {
     }
     textarea{
 
-        height: 150px;
+        height: 135px;
         border: none;
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         font-size: 22px;
@@ -140,6 +140,11 @@ body {
         border: none;
 
         margin-top: 0px;
+        margin-left: 5px;
+        margin-right: 5px;
+    }
+    #file {
+        margin-left: 10px;
     }
 
     #postButton {
@@ -191,12 +196,20 @@ body {
         font-size: 18px;
         color: rgb(113, 115, 107);
     }
-    #postBackground img {
+    #postBackground #userBar img {
         width: 75px;
         border-radius: 50%;
     }
     #postContent {
         margin-top: 10px;
         text-align: left;
+    }
+    #postContent #post{
+        font-size: 20px;
+        margin-bottom:-20px;
+    }
+    #postContent #image{
+        text-align: center;
+        margin-bottom:-20px;
     }
 }

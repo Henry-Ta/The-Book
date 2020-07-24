@@ -5,7 +5,6 @@
         <div id="profileImage">
             <a href="profile.php"><img src="<?php print_r($_SESSION['profile_image']) ?>"></a>
             <a href="logout.php">Log Out</a>
-            
         </div>
     </div>
 </div>

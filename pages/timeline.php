@@ -15,7 +15,7 @@
     // create post
     if($_SERVER['REQUEST_METHOD']=='POST'){
         $post = new Post();
-        $result = $post->create_post($_SESSION['thebook_userid'],$_POST);
+        $result = $post->create_post($_SESSION['thebook_userid'],$_POST,$_FILES);
         if($result){
             header("Location: timeline.php");      // to not resend data to database when reload
             die;
@@ -26,13 +26,18 @@
     function get_posts(){
         $post = new Post();
         $posts = $post->get_posts($_SESSION['thebook_userid']);
-
+        
         if($posts){
             foreach($posts as $p){
+                $image = '';
                 $user = new User();
                 $data_user = $user->get_data($p['userid']);
 
                 $avatar_user = get_profile_image($data_user['profile_image'],$data_user['gender']);
+
+                if(file_exists($p["image"])){
+                    $image = '<img src=' . $p["image"] . ' />';
+                }
 
                 echo '<div id="postBackground">
                         <div id="postArea">
@@ -41,16 +46,19 @@
                                 <div id="userName">' . $data_user["first_name"] . " " . $data_user["last_name"] . '</div>
                                 <div id="date">' . $p["date"] .'</div>
                             </div>
-                            <div id="postContent">
-                            ' . $p["post"] . '
-                            <br><br>
-                            <a href="">Like</a> . <a href="">Comment</a>
+                            <div id="postContent">    
+                                <div id="post">' . $p["post"] . '</div>
+                                <br><br>
+                                <div id="image">' . $image .'</div>
+                                <br><br>
+                                <a href="">Like</a> . <a href="">Comment</a>
                             </div>
                         </div>
                     </div> ';
             }
         }
     }
+
 
 ?>
 
@@ -76,9 +84,10 @@
                 <div id="userName"><?php echo $user_data['first_name'] . " ". $user_data['last_name'];?></div>
             </div>
             <div id="centerContent">
-                <form method="post">
+                <form method="post" enctype="multipart/form-data">
                     <div id="postForm">
                         <textarea name="post" placeholder=" What's on your mind?"></textarea>
+                        <input id="file" type="file" name="file">
                         <input id="postButton" type="submit" value="Post">                   
                     </div>
                 </form>
