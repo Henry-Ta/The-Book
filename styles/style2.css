@@ -133,7 +133,6 @@ body {
 
     #bodyProfile {
         width: 1280px;
-        min-height: 800px;
         margin: auto;        
         text-align: center;
 
@@ -145,23 +144,20 @@ body {
     #bodyProfile #leftContent{
         grid-column: 1;
         grid-row: 1;
-
-        margin-right: 10px;
-        height: 630px;
-        background-color: white;
-        border-radius: 8px;
     }
     #bodyProfile #rightContent {
         grid-column: 2;
         grid-row: 1;
 
         margin-left: 10px;
-        min-height: 800px;
     }
 
     /*-----------------------------------------------------Left Contents*/
     #leftContent #friendsArea{
-        height: 630px;
+        background-color: white;
+        margin-right: 10px;
+        padding-bottom: 20px;
+        border-radius: 8px;
     }
     #leftContent #friendsArea #friendsBar{
         display: grid;
@@ -222,9 +218,8 @@ body {
     #reference {
         color: rgb(101, 103, 107);
         float: left;
-        margin-top: 10px;
+        margin-top: -5px;
         font-size: 22px;
-        
     }
     #reference #referenceList {
         display: grid;

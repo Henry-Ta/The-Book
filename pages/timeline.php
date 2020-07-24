@@ -7,8 +7,50 @@
     include("../classes/user.php");
     include("../classes/post.php");
 
+    include("get_images.php");
+
     $login = new Login();
     $user_data = $login->check_login($_SESSION['thebook_userid']);
+
+    // create post
+    if($_SERVER['REQUEST_METHOD']=='POST'){
+        $post = new Post();
+        $result = $post->create_post($_SESSION['thebook_userid'],$_POST);
+        if($result){
+            header("Location: timeline.php");      // to not resend data to database when reload
+            die;
+        }
+    }
+
+    // get post
+    function get_posts(){
+        $post = new Post();
+        $posts = $post->get_posts($_SESSION['thebook_userid']);
+
+        if($posts){
+            foreach($posts as $p){
+                $user = new User();
+                $data_user = $user->get_data($p['userid']);
+
+                $avatar_user = get_profile_image($data_user['profile_image'],$data_user['gender']);
+
+                echo '<div id="postBackground">
+                        <div id="postArea">
+                            <div id="userBar">
+                                <img id="userImg" src="../images/' . $avatar_user . '">
+                                <div id="userName">' . $data_user["first_name"] . " " . $data_user["last_name"] . '</div>
+                                <div id="date">' . $p["date"] .'</div>
+                            </div>
+                            <div id="postContent">
+                            ' . $p["post"] . '
+                            <br><br>
+                            <a href="">Like</a> . <a href="">Comment</a>
+                            </div>
+                        </div>
+                    </div> ';
+            }
+        }
+    }
 
 ?>
 
@@ -29,44 +71,20 @@
 
         <div id="bodyTimeline">
             <div id="leftContent">
-                <a href="profile.php"><img id="userImg" src="../images/selfie.jpg"></a>
+                <a href="profile.php"><img id="userImg" src="<?php print_r($_SESSION['profile_image']) ?>"></a>
                 <br>
                 <div id="userName"><?php echo $user_data['first_name'] . " ". $user_data['last_name'];?></div>
             </div>
             <div id="centerContent">
-                <div id="postForm">
-                    <textarea placeholder=" What's on your mind?"></textarea>
-                    <input id="postButton" type="submit" value="Post">
-                </div>
-                <div id="postBackground">
-                    <div id="postArea">
-                        <div id="userBar">
-                            <img id="userImg" src="../images/user3.jpg">
-                            <div id="userName">Henry Ta</div>
-                            <div id="date">July 1st 2020</div>
-                        </div>
-                        <div id="postContent">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                        <br><br>
-                        <a href="">Like</a> . <a href="">Comment</a>
-                        </div>
+                <form method="post">
+                    <div id="postForm">
+                        <textarea name="post" placeholder=" What's on your mind?"></textarea>
+                        <input id="postButton" type="submit" value="Post">                   
                     </div>
-                </div>
-
-                <div id="postBackground">
-                    <div id="postArea">
-                        <div id="userBar">
-                            <img id="userImg" src="../images/user2.jpg">
-                            <div id="userName">Henry Ta</div>
-                            <div id="date">July 1st 2020</div>
-                        </div>
-                        <div id="postContent">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                        <br><br>
-                        <a href="">Like</a> . <a href="">Comment</a>
-                        </div>
-                    </div>
-                </div>
+                </form>
+                <?php
+                    get_posts();  
+                ?>
             </div>
             <div id="rightContent">
                 Request
