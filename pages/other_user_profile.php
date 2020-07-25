@@ -12,14 +12,14 @@
     $background_image = '';     #default cover image
 
     $login = new Login();
-    $user_data = $login->check_login($_SESSION['thebook_userid']);
+    $user_data = $login->check_login($_SESSION['found_user']);
 
     $gender_user = $user_data['gender'];
 
     // create post
     if($_SERVER['REQUEST_METHOD']=='POST'){
         $post = new Post();
-        $result = $post->create_post($_SESSION['thebook_userid'],$_POST);
+        $result = $post->create_post($_SESSION['found_user'],$_POST);
         if($result){
             header("Location: login.php");      // to not resend data to database when reload
             die;
@@ -28,7 +28,7 @@
 
     function get_posts(){
         $post = new Post();
-        $posts = $post->get_posts($_SESSION['thebook_userid']);
+        $posts = $post->get_posts($_SESSION['found_user']);
 
         if($posts){
             foreach($posts as $p){
@@ -57,7 +57,7 @@
 
     function get_friends(){
         $user = new User();
-        $friends = $user->get_friends($_SESSION['thebook_userid']);
+        $friends = $user->get_friends($_SESSION['found_user']);
 
         if($friends){
             foreach($friends as $f){
@@ -72,7 +72,6 @@
 
     $profile_image = get_profile_image($user_data['profile_image'],$gender_user);
     $background_image = get_background_image($user_data['cover_image']);
-    $_SESSION['profile_image'] = $profile_image;        // pass value to topbar in other pages
 
 ?>
 
@@ -96,6 +95,9 @@
                 <a href="change_coverImg.php">Change Cover</a>
                 <img id="profilePhoto" src="<?php echo $profile_image ?>">
                 <a href="change_profileImg.php">Change Image</a>
+                <form method="post">
+                    <input id="postButton" type="submit" name="" value="Add Friend">                   
+                </form>
                 <br>
                 <div id="profileName"><?php echo $user_data['first_name'] . " " . $user_data['last_name']?></div>
                 <br>

@@ -23,5 +23,16 @@
             }
             return false;
         }
+
+        public function find_user($email){
+            $query = "select userid from users where email = '$email' limit 1";
+            $DB = new Database();
+            $result = $DB->read($query);
+
+            if($result){
+                return $result[0];
+            }
+            return false;
+        }
     }
 ?>
