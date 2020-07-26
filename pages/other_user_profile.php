@@ -12,11 +12,13 @@
     $profile_image = '';        #default profile image
     $background_image = '';     #default cover image
 
-    
     $_SESSION['friend_button'] = "";    # display friend button
 
     $login = new Login();
     $user_data = $login->check_login($_SESSION['found_user']);
+
+    $user = new User();
+    $post = new Post();
 
     $gender_user = $user_data['gender'];        #select gender for default photo
 
@@ -25,9 +27,9 @@
         // post a status
         if(isset($_POST['button_post'])){
             $post = new Post();
-            $result = $post->create_post($_SESSION['found_user'],$_POST);
+            $result = $post->create_post_on_other_user($_SESSION['found_user'],$_POST,$_FILES,$_SESSION['thebook_userid']);
             if($result){
-                header("Location: login.php");      // to not resend data to database when reload
+                header("Location: other_user_profile.php");      // to not resend data to database when reload
                 die;
             }
         }
@@ -84,6 +86,43 @@
                             ' . $p["post"] . '
                             <br><br>
                             <a href="">Like</a> . <a href="">Comment</a>
+                            </div>
+                        </div>
+                    </div> ';
+            }
+        }
+    }
+
+    function get_posts_from_guest(){
+        global $post;
+        global $user;
+        $posts = $post->get_posts_on_other_user($_SESSION['found_user']);
+        
+        if($posts){
+            foreach($posts as $p){
+                $image = '';
+                
+                $data_user = $user->get_data($p['guestid']);
+
+                $avatar_user = get_profile_image($data_user['profile_image'],$data_user['gender']);
+
+                if(file_exists($p["image"])){
+                    $image = '<img src=' . $p["image"] . ' />';
+                }
+
+                echo '<div id="postBackground">
+                        <div id="postArea">
+                            <div id="userBar">
+                                <img id="userImg" src="../images/' . $avatar_user . '">
+                                <div id="userName">' . $data_user["first_name"] . " " . $data_user["last_name"] . '</div>
+                                <div id="date">' . $p["date"] .'</div>
+                            </div>
+                            <div id="postContent">    
+                                <div id="post">' . $p["post"] . '</div>
+                                <br><br>
+                                <div id="image">' . $image .'</div>
+                                <br><br>
+                                <a href="">Like</a> . <a href="">Comment</a>
                             </div>
                         </div>
                     </div> ';
@@ -171,14 +210,16 @@
                 </div>
             </div>
             <div id="rightContent">
-                <form method="post">
+                <form method="post" enctype="multipart/form-data">
                     <div id="postForm">
                         <textarea name="post" placeholder=" What's on your mind?"></textarea>
-                        <input id="postButton" type="submit" value="Post" name="button_post">                   
+                        <input id="file" type="file" name="file">
+                        <input id="postButton" type="submit" value="Post">                   
                     </div>
                 </form>
 
                 <?php
+                    get_posts_from_guest();
                     get_posts();  
                 ?>
 
