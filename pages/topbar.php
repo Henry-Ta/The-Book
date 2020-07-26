@@ -1,13 +1,14 @@
 <?php
     if($_SERVER['REQUEST_METHOD']=='POST'){
-        $search_user = new User();
-        $found_user = $search_user->find_user($_POST['search']);
-        if($found_user){
-            $_SESSION['found_user'] = $found_user['userid'];
-            header("Location: other_user_profile.php");      // to not resend data to database when reload
-            die;
+        if(isset($_POST['search'])){
+            $search_user = new User();
+            $found_user = $search_user->find_user($_POST['search']);
+            if($found_user){
+                $_SESSION['found_user'] = $found_user['userid'];
+                header("Location: other_user_profile.php");      // to not resend data to database when reload
+                die;
+            }
         }
-        
     }
 ?>
 

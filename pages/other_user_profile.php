@@ -5,24 +5,57 @@
     include("../classes/login.php");
     include("../classes/user.php");
     include("../classes/post.php");
+    include("../classes/friend.php");
     
     include("get_images.php");
 
     $profile_image = '';        #default profile image
     $background_image = '';     #default cover image
 
+    
+    $_SESSION['friend_button'] = "";    # display friend button
+
     $login = new Login();
     $user_data = $login->check_login($_SESSION['found_user']);
 
-    $gender_user = $user_data['gender'];
+    $gender_user = $user_data['gender'];        #select gender for default photo
 
-    // create post
+    // create a post
     if($_SERVER['REQUEST_METHOD']=='POST'){
-        $post = new Post();
-        $result = $post->create_post($_SESSION['found_user'],$_POST);
-        if($result){
-            header("Location: login.php");      // to not resend data to database when reload
-            die;
+        // post a status
+        if(isset($_POST['button_post'])){
+            $post = new Post();
+            $result = $post->create_post($_SESSION['found_user'],$_POST);
+            if($result){
+                header("Location: login.php");      // to not resend data to database when reload
+                die;
+            }
+        }
+        
+        // send friend request
+        if(isset($_POST['button_friend'])){
+            $friend = new Friend();
+            $result = $friend->send_request($_SESSION['thebook_userid'],$_SESSION['found_user']);
+            if($result){
+                header("Location: other_user_profile.php");      // to not resend data to database when reload
+                die;
+            }
+        }
+    }
+
+    function display_friend_button(){
+        $friend = new Friend();
+        $result = $friend->get_request_to_display_button($_SESSION['thebook_userid'], $_SESSION['found_user']);
+
+        if($result == false){
+            $_SESSION['friend_button'] = "Add Friend";
+        }else{
+            if($result['requested'] == 1){
+                $_SESSION['friend_button'] = "+1 Friend Request Sent";
+            }
+            if($result['requested'] == 2){
+                $_SESSION['friend_button'] = "Friend";
+            }
         }
     }
 
@@ -73,6 +106,7 @@
     $profile_image = get_profile_image($user_data['profile_image'],$gender_user);
     $background_image = get_background_image($user_data['cover_image']);
 
+    display_friend_button();
 ?>
 
 <!----------------------------------------HTML------------------------------------------->
@@ -96,7 +130,7 @@
                 <img id="profilePhoto" src="<?php echo $profile_image ?>">
                 <a href="change_profileImg.php">Change Image</a>
                 <form method="post">
-                    <input id="postButton" type="submit" name="" value="Add Friend">                   
+                    <input id="postButton" type="submit" name="button_friend" value="<?php print_r($_SESSION['friend_button']); ?>">                   
                 </form>
                 <br>
                 <div id="profileName"><?php echo $user_data['first_name'] . " " . $user_data['last_name']?></div>
@@ -138,7 +172,7 @@
                 <form method="post">
                     <div id="postForm">
                         <textarea name="post" placeholder=" What's on your mind?"></textarea>
-                        <input id="postButton" type="submit" value="Post">                   
+                        <input id="postButton" type="submit" value="Post" name="button_post">                   
                     </div>
                 </form>
 

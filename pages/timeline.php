@@ -6,6 +6,7 @@
     include("../classes/login.php");
     include("../classes/user.php");
     include("../classes/post.php");
+    include("../classes/friend.php");
 
     include("get_images.php");
 
@@ -59,7 +60,28 @@
         }
     }
 
+    function get_friend_request(){
+        $friend = new Friend();
+        $result = $friend->get_all_requests($_SESSION['thebook_userid']);
 
+        $user = new User();
+        
+        if($result){
+            foreach($result as $r){
+                $user_request = $user->get_data($r['from_userid']);
+                echo '<div id="friend">
+                        <form method="post">
+                            <img id="friendImg" src="'. get_profile_image($user_request['profile_image'],$user_request['gender']) . '">
+                            <div id="friendName">' . $user_request['first_name'] . " " . $user_request['last_name'] . '</div>
+                            <div id="button">
+                                <input id="yesButton" type="submit" name="yes_button" value="Yes">
+                                <input id="noButton" type="submit" name="no_button" value="No">
+                            </div>
+                         </form>   
+                    </div>';
+            }
+        }
+    }
 ?>
 
 <!----------------------------------------HTML------------------------------------------->
@@ -96,7 +118,10 @@
                 ?>
             </div>
             <div id="rightContent">
-                Request
+                <div id="request">Friend Request</div>
+                <?php
+                    get_friend_request();
+                ?>
             </div>
         </div<>
     </main>
