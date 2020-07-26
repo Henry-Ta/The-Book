@@ -13,6 +13,8 @@
     $login = new Login();
     $user_data = $login->check_login($_SESSION['thebook_userid']);
 
+    $friend = new Friend();
+
     // create post
     if($_SERVER['REQUEST_METHOD']=='POST'){
         $post = new Post();
@@ -20,6 +22,24 @@
         if($result){
             header("Location: timeline.php");      // to not resend data to database when reload
             die;
+        }
+
+        //------------------------------------Confirm/Delete friend request--------//
+        if(isset($_POST['yes_button'])){
+            #echo $_POST['form_id'];     // get id of accepting user
+            $result = $friend->accept_request($_POST['form_id'],$_SESSION['thebook_userid']);
+            if($result){
+                header("Location: timeline.php");      // to not resend data to database when reload
+                die;
+            }
+        }
+        if(isset($_POST['no_button'])){
+            //echo $_POST['form_id'];     // get id of deleting user
+            $result = $friend->delete_request($_POST['form_id'],$_SESSION['thebook_userid']);
+            if($result){
+                header("Location: timeline.php");      // to not resend data to database when reload
+                die;
+            }
         }
     }
 
@@ -61,7 +81,7 @@
     }
 
     function get_friend_request(){
-        $friend = new Friend();
+        global $friend;
         $result = $friend->get_all_requests($_SESSION['thebook_userid']);
 
         $user = new User();
@@ -74,8 +94,9 @@
                             <img id="friendImg" src="'. get_profile_image($user_request['profile_image'],$user_request['gender']) . '">
                             <div id="friendName">' . $user_request['first_name'] . " " . $user_request['last_name'] . '</div>
                             <div id="button">
-                                <input id="yesButton" type="submit" name="yes_button" value="Yes">
-                                <input id="noButton" type="submit" name="no_button" value="No">
+                                <input id="yesButton" type="submit" name="yes_button" value="Confirm" attr="">
+                                <input id="noButton" type="submit" name="no_button" value="Delete">
+                                <input type="hidden" name="form_id" value='. $r['from_userid'] .'>
                             </div>
                          </form>   
                     </div>';
@@ -98,7 +119,6 @@
         <?php include("topbar.php")?>
     </header>
     <main>
-
         <div id="bodyTimeline">
             <div id="leftContent">
                 <a href="profile.php"><img id="userImg" src="<?php print_r($_SESSION['profile_image']) ?>"></a>

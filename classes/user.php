@@ -12,8 +12,8 @@
             return false;
         }
 
-        public function get_friends($id){
-            $query = "select * from users where userid != '$id'";
+        public function get_friends($to_user){
+            $query = "select from_userid from friend_requests where to_userid ='$to_user' and requested = 2";
             $DB = new Database();
             $result = $DB->read($query);
 

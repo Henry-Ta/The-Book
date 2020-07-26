@@ -238,6 +238,9 @@ body {
         width: 100px;
         height: auto;
     }
+    #friend img{
+        border-radius: 50px;
+    }
     #friendName{
         font-weight: bold;
     }

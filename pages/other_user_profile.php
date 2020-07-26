@@ -46,14 +46,17 @@
     function display_friend_button(){
         $friend = new Friend();
         $result = $friend->get_request_to_display_button($_SESSION['thebook_userid'], $_SESSION['found_user']);
-
-        if($result == false){
+        
+        if(!$result){
             $_SESSION['friend_button'] = "Add Friend";
         }else{
-            if($result['requested'] == 1){
+            if($result['requested'] == 0){
+                $_SESSION['friend_button'] = "Add Friend";
+            }
+            elseif($result['requested'] == 1){
                 $_SESSION['friend_button'] = "+1 Friend Request Sent";
             }
-            if($result['requested'] == 2){
+            elseif($result['requested'] == 2){
                 $_SESSION['friend_button'] = "Friend";
             }
         }
@@ -93,7 +96,8 @@
         $friends = $user->get_friends($_SESSION['found_user']);
 
         if($friends){
-            foreach($friends as $f){
+            foreach($friends as $i){
+                $f = $user->get_data($i['from_userid']);
                 echo '<div id="friend">
                         <img id="friendImg" src="'. get_profile_image($f['profile_image'],$f['gender']) . '">
                         <div id="friendName">' . $f['first_name'] . " " . $f['last_name'] . '</div>
@@ -126,14 +130,12 @@
         <div id="backgroundCover">
             <div id="coverArea">
                 <img id="coverPhoto" src="<?php echo $background_image ?>">
-                <a href="change_coverImg.php">Change Cover</a>
                 <img id="profilePhoto" src="<?php echo $profile_image ?>">
-                <a href="change_profileImg.php">Change Image</a>
+                <br>
+                <div id="profileName"><?php echo $user_data['first_name'] . " " . $user_data['last_name']?></div>
                 <form method="post">
                     <input id="postButton" type="submit" name="button_friend" value="<?php print_r($_SESSION['friend_button']); ?>">                   
                 </form>
-                <br>
-                <div id="profileName"><?php echo $user_data['first_name'] . " " . $user_data['last_name']?></div>
                 <br>
                 <div id="menuButtons">
                     <div id="timeline"><a href="timeline.php">Timeline</a></div> 

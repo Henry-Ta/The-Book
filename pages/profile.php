@@ -14,11 +14,14 @@
     $login = new Login();
     $user_data = $login->check_login($_SESSION['thebook_userid']);
 
+    $user = new User();
+    $post = new Post();
+
     $gender_user = $user_data['gender'];
 
     // create post
     if($_SERVER['REQUEST_METHOD']=='POST'){
-        $post = new Post();
+        global $post;
         $result = $post->create_post($_SESSION['thebook_userid'],$_POST,$_FILES);
 
         if($result){
@@ -28,13 +31,14 @@
     }
 
     function get_posts(){
-        $post = new Post();
+        global $post;
+        global $user;
         $posts = $post->get_posts($_SESSION['thebook_userid']);
         
         if($posts){
             foreach($posts as $p){
                 $image = '';
-                $user = new User();
+                
                 $data_user = $user->get_data($p['userid']);
 
                 $avatar_user = get_profile_image($data_user['profile_image'],$data_user['gender']);
@@ -64,11 +68,13 @@
     }
 
     function get_friends(){
-        $user = new User();
+        global $user;
+
         $friends = $user->get_friends($_SESSION['thebook_userid']);
 
         if($friends){
-            foreach($friends as $f){
+            foreach($friends as $i){
+                $f = $user->get_data($i['from_userid']);
                 echo '<div id="friend">
                         <img id="friendImg" src="'. get_profile_image($f['profile_image'],$f['gender']) . '">
                         <div id="friendName">' . $f['first_name'] . " " . $f['last_name'] . '</div>

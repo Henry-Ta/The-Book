@@ -37,6 +37,24 @@
                 return false;
             }
         }
+
+        public function delete_request($from_userid,$to_userid){
+            $query = "delete from friend_requests where from_userid='$from_userid' and to_userid='$to_userid'";
+            $DB = new Database();
+            $DB->save($query);
+            return true;
+        }
+
+        public function accept_request($from_userid,$to_userid){
+            $query = "update friend_requests set requested=2 where from_userid='$from_userid' and to_userid='$to_userid'";
+            $DB = new Database();
+            $DB->save($query);
+
+            // make a friend connection from both sides : A->B && B->A
+            $query2 = "insert into friend_requests (from_userid,to_userid,requested) values ('$to_userid','$from_userid','2')";
+            $DB->save($query2);
+            return true;
+        }
     }
 
 ?>
