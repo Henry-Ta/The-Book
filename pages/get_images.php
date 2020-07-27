@@ -4,9 +4,9 @@
             return $image;
         }else{
             if($gender == "Male"){
-                return '../images/user1.jpg';
+                return '../images/default_male.jpg';
             }else {
-                return '../images/user6.jpg';
+                return '../images/default_female.jpg';
             }
         }
         
