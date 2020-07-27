@@ -43,6 +43,19 @@
                 die;
             }
         }
+
+        if(isset($_POST['move_to_friend_page'])){
+            // Click on friend image in Friend List and move to their page
+            // Using image button to submit and hidden form to take userid
+            if($_POST['move_to_friend_page'] != $_SESSION['thebook_userid']){
+                $_SESSION['found_user'] = $_POST['move_to_friend_page'];
+                header("Location: other_user_profile.php");
+                die;
+            }else{
+                header("Location: profile.php");
+                die;
+            }  
+        }
     }
 
     function display_friend_button(){
@@ -131,16 +144,20 @@
     }
 
     function get_friends(){
-        $user = new User();
+        global $user;
+
         $friends = $user->get_friends($_SESSION['found_user']);
 
         if($friends){
             foreach($friends as $i){
                 $f = $user->get_data($i['from_userid']);
-                echo '<div id="friend">
-                        <img id="friendImg" src="'. get_profile_image($f['profile_image'],$f['gender']) . '">
-                        <div id="friendName">' . $f['first_name'] . " " . $f['last_name'] . '</div>
-                    </div>';
+                echo '  <form method="post" >
+                            <div id="friend">
+                                <input type="image" id="friendImg" alt="Submit" src="' . get_profile_image($f['profile_image'],$f['gender']) .'">
+                                <input type="hidden" name="move_to_friend_page" value="'.$f['userid'].'">
+                                <div id="friendName">' . $f['first_name'] . " " . $f['last_name'] . '</div>
+                            </div>
+                        </form>';
             }
         }
 
@@ -214,7 +231,7 @@
                     <div id="postForm">
                         <textarea name="post" placeholder=" What's on your mind?"></textarea>
                         <input id="file" type="file" name="file">
-                        <input id="postButton" type="submit" value="Post">                   
+                        <input id="postButton" type="submit" value="Post" name="button_post">                   
                     </div>
                 </form>
 

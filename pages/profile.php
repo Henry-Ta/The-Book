@@ -28,6 +28,14 @@
             header("Location: profile.php");      // to not resend data to database when reload
             die;
         }
+
+        if(isset($_POST['move_to_friend_page'])){
+            // Click on friend image in Friend List and move to their page
+            // Using image button to submit and hidden form to take userid
+            $_SESSION['found_user'] = $_POST['move_to_friend_page'];
+            header("Location: other_user_profile.php");
+            die;
+        }
     }
 
     function get_posts(){
@@ -75,10 +83,13 @@
         if($friends){
             foreach($friends as $i){
                 $f = $user->get_data($i['from_userid']);
-                echo '<div id="friend">
-                        <img id="friendImg" src="'. get_profile_image($f['profile_image'],$f['gender']) . '">
-                        <div id="friendName">' . $f['first_name'] . " " . $f['last_name'] . '</div>
-                    </div>';
+                echo '  <form method="post" >
+                            <div id="friend">
+                                <input type="image" id="friendImg" alt="Submit" src="' . get_profile_image($f['profile_image'],$f['gender']) .'">
+                                <input type="hidden" name="move_to_friend_page" value="'.$f['userid'].'">
+                                <div id="friendName">' . $f['first_name'] . " " . $f['last_name'] . '</div>
+                            </div>
+                        </form>';
             }
         }
 
