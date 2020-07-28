@@ -3,6 +3,11 @@ body {
     background-color: rgb(240, 242, 245);
 }
 
+header{
+    position: sticky;
+    top: 0;
+}
+
 #blueBar {
     background-color: #3c5a99;
 }
@@ -39,11 +44,9 @@ body {
     border-radius: 15px;
     border: none;
     font-size: 14px;
-    background-image: url(../images/search.png);
-    background-repeat: no-repeat;
-    background-position: right;
     text-align: center;
 }
+
 #headerProfile #profileImage{
     grid-column: 3;
     grid-row: 1;
@@ -55,6 +58,19 @@ body {
 #headerProfile img{
     width: 55px;
     border-radius: 50%;
+}
+
+#imageButton{
+    background-image: url(../images/search.png);
+    background-repeat: no-repeat;
+    background-color: white;
+    border-radius: 50%;
+    width: 32px; 
+    height: 32px;
+    position: relative;
+    left: -3px;
+    top:-5.5px;
+    
 }
 
 

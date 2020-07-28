@@ -145,6 +145,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profile Page | Thebook</title>
     <link rel="stylesheet" href="../styles/style2.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript" src="drop_down_topBar.js"></script>
 </head>
 <body>
     <header>

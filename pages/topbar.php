@@ -12,17 +12,21 @@
     }
 ?>
 
+
 <div id="blueBar">
     <div id="headerProfile">
         <div id="logo"><a href="timeline.php">thebook</a></div>
         <div id="search">
             <form method="post">
                 <input name="search" type="text" id="searchBox" placeholder="Search Thebook">
+                <button type="submit" id="imageButton"></button>
             </form>
         </div>
         <div id="profileImage">
             <a href="profile.php"><img src="<?php print_r($_SESSION['profile_image']) ?>"></a>
-            <a href="logout.php">Log Out</a>
+            <a href="logout.php" style="padding-left: 5px"><img src="../images/poweroff.png"></a>
+            
         </div>
     </div>
 </div>
+
