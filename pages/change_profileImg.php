@@ -27,6 +27,20 @@
         }
     }
 
+    function get_user_image(){
+        global $user_data;
+        if(file_exists($user_data['profile_image'])){
+            return $user_data['profile_image'];
+        }else{
+            if($user_data['gender'] == "Male"){
+                return '../images/default_male.jpg';
+            }else {
+                return '../images/default_female.jpg';
+            }
+        }
+    }
+
+    $user_image = get_user_image();
 ?>
 
 <!----------------------------------------HTML------------------------------------------->
@@ -61,7 +75,7 @@
                 <div id="profileImg">
                     Profile Image
                     <br><br>
-                    <img src="<?php echo $user_data['profile_image'];?>">
+                    <img src="<?php echo $user_image; ?>">
                 </div>
                 
             </div>

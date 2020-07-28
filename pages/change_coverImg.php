@@ -28,6 +28,18 @@
         }
     }
 
+    function get_user_image(){
+        global $user_data;
+        if(file_exists($user_data['cover_image'])){
+            return $user_data['cover_image'];
+        }else{
+            return "../images/default-cover.jpg";
+        }
+    }
+
+    $user_image = get_user_image();
+
+
 ?>
 
 <!----------------------------------------HTML------------------------------------------->
@@ -61,7 +73,7 @@
                 <div id="userImg">
                     Cover Image
                     <br><br>
-                    <img src="<?php echo $user_data['cover_image'];?>">
+                    <img src="<?php echo $user_image;?>">
                 </div>
             </div>
         </div<>

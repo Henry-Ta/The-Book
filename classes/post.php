@@ -76,7 +76,7 @@
                 return false;
             }
         }
-
+        
         private function create_postid(){
             $length = rand(5,20);
             $number = "";

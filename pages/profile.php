@@ -75,6 +75,43 @@
         }
     }
 
+    function get_posts_from_guest(){
+        global $post;
+        global $user;
+        $posts = $post->get_posts_on_other_user($_SESSION['found_user']);
+        
+        if($posts){
+            foreach($posts as $p){
+                $image = '';
+                
+                $data_user = $user->get_data($p['guestid']);
+
+                $avatar_user = get_profile_image($data_user['profile_image'],$data_user['gender']);
+
+                if(file_exists($p["image"])){
+                    $image = '<img src=' . $p["image"] . ' />';
+                }
+
+                echo '<div id="postBackground">
+                        <div id="postArea">
+                            <div id="userBar">
+                                <img id="userImg" src="../images/' . $avatar_user . '">
+                                <div id="userName">' . $data_user["first_name"] . " " . $data_user["last_name"] . '</div>
+                                <div id="date">' . $p["date"] .'</div>
+                            </div>
+                            <div id="postContent">    
+                                <div id="post">' . $p["post"] . '</div>
+                                <br><br>
+                                <div id="image">' . $image .'</div>
+                                <br><br>
+                                <a href="">Like</a> . <a href="">Comment</a>
+                            </div>
+                        </div>
+                    </div> ';
+            }
+        }
+    }
+
     function get_friends(){
         global $user;
 
@@ -92,7 +129,6 @@
                         </form>';
             }
         }
-
     }
 
     $profile_image = get_profile_image($user_data['profile_image'],$gender_user);
@@ -170,6 +206,7 @@
 
                 <?php
                     get_posts();  
+                    get_posts_from_guest();
                 ?>
 
             </div>

@@ -13,11 +13,14 @@
     $login = new Login();
     $user_data = $login->check_login($_SESSION['thebook_userid']);
 
+    $post = new Post();
+    $user = new User();
     $friend = new Friend();
 
     // create post
     if($_SERVER['REQUEST_METHOD']=='POST'){
-        $post = new Post();
+        global $post;
+
         $result = $post->create_post($_SESSION['thebook_userid'],$_POST,$_FILES);
         if($result){
             header("Location: timeline.php");      // to not resend data to database when reload
@@ -45,7 +48,7 @@
 
     // get post
     function get_posts(){
-        $post = new Post();
+        global $post;
         $posts = $post->get_posts($_SESSION['thebook_userid']);
         
         if($posts){
@@ -76,6 +79,50 @@
                             </div>
                         </div>
                     </div> ';
+            }
+        }
+    }
+
+    // get post from friends
+    function get_posts_from_friends(){
+        global $post;
+        global $user;
+
+        $friends = $user->get_friends($_SESSION['thebook_userid']);
+        
+        if($friends){
+            foreach($friends as $i){
+                $f = $user->get_data($i['from_userid']);
+                $posts = $post->get_posts($f['userid']);
+
+                if($posts){
+                    foreach($posts as $p){
+                        $image = '';
+                        
+                        $avatar_user = get_profile_image($f['profile_image'],$f['gender']);
+        
+                        if(file_exists($p["image"])){
+                            $image = '<img src=' . $p["image"] . ' />';
+                        }
+        
+                        echo '<div id="postBackground">
+                                <div id="postArea">
+                                    <div id="userBar">
+                                        <img id="userImg" src="../images/' . $avatar_user . '">
+                                        <div id="userName">' . $f["first_name"] . " " . $f["last_name"] . '</div>
+                                        <div id="date">' . $p["date"] .'</div>
+                                    </div>
+                                    <div id="postContent">    
+                                        <div id="post">' . $p["post"] . '</div>
+                                        <br><br>
+                                        <div id="image">' . $image .'</div>
+                                        <br><br>
+                                        <a href="">Like</a> . <a href="">Comment</a>
+                                    </div>
+                                </div>
+                            </div> ';
+                    }
+                }
             }
         }
     }
@@ -134,12 +181,14 @@
                     </div>
                 </form>
                 <?php
-                    get_posts();  
+                    get_posts(); 
+                    get_posts_from_friends();  
                 ?>
             </div>
             <div id="rightContent">
                 <div id="request">Friend Request</div>
                 <?php
+                     
                     get_friend_request();
                 ?>
             </div>

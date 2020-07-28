@@ -19,4 +19,5 @@
             return "../images/default-cover.jpg";
         }
     }
+
 ?>
