@@ -117,10 +117,12 @@
     <main>
         <div id="backgroundCover">
             <div id="coverArea">
-                <img id="coverPhoto" src="<?php echo $background_image ?>">
-                <a href="change_coverImg.php">Change Cover</a>
-                <img id="profilePhoto" src="<?php echo $profile_image ?>">
-                <a href="change_profileImg.php">Change Image</a>
+                <a href="change_coverImg.php">
+                    <img id="coverPhoto" src="<?php echo $background_image ?>">
+                </a>
+                <a href="change_profileImg.php">
+                    <img id="profilePhoto" src="<?php echo $profile_image ?>">
+                </a>
                 <br>
                 <div id="profileName"><?php echo $user_data['first_name'] . " " . $user_data['last_name']?></div>
                 <br>

@@ -223,6 +223,10 @@ body {
         height: auto;
     }
 
+    #showImg img, #userImg img{
+        height: 400px;
+    }
+
     /*-----------------------------------------------------Right Contents*/
     #request{
         font-size: 30px;

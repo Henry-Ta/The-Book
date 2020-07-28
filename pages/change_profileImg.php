@@ -10,7 +10,7 @@
     $user_data = $login->check_login($_SESSION['thebook_userid']);
 
     if($_SERVER['REQUEST_METHOD']=='POST'){
-        if(isset($_FILES['file']['name']) && $_FILES['file']['name']!="" && $_FILES['file']['type']=='image/jpeg'){
+        if(isset($_FILES['file']) && $_FILES['file']['name']!="" && $_FILES['file']['type']=='image/jpeg'){
 
             $files_location = "../uploads/profile_photos/" . $_FILES['file']['name'];
             move_uploaded_file($_FILES['file']['tmp_name'],$files_location); // change location of default destination when uploading
@@ -37,6 +37,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Change Profile Image | Thebook</title>
     <link rel="stylesheet" href="../styles/style3.css">
+
+    <!-- Link for jQuery-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript" src="get_preview_Image.js"></script>
 </head>
 <body>
     <header>
@@ -47,10 +51,19 @@
             <div id="centerContent">
                 <form method="post" enctype="multipart/form-data"> <!-- enctype="mul..." : for encoding when submiting post -->
                     <div id="postForm" style="height:100px;">
-                        <input type="file" name="file">        <!-- post file always goes with enctype="mul..." -->
+                        <input type="file" name="file" id="fileImg">        <!-- post file always goes with enctype="mul..." -->
                         <input id="postButton" type="submit" value="Update Profile Photo">
                     </div>
                 </form> 
+
+                <br>
+                <div id="showImg"></div>
+                <div id="profileImg">
+                    Profile Image
+                    <br><br>
+                    <img src="<?php echo $user_data['profile_image'];?>">
+                </div>
+                
             </div>
         </div<>
     </main>
