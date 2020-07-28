@@ -46,15 +46,12 @@
         if($posts){
             foreach($posts as $p){
                 $image = '';
-                
                 $data_user = $user->get_data($p['userid']);
-
                 $avatar_user = get_profile_image($data_user['profile_image'],$data_user['gender']);
 
                 if(file_exists($p["image"])){
                     $image = '<img src=' . $p["image"] . ' />';
                 }
-
                 echo '<div id="postBackground">
                         <div id="postArea">
                             <div id="userBar">
@@ -78,27 +75,28 @@
     function get_posts_from_guest(){
         global $post;
         global $user;
-        $posts = $post->get_posts_on_other_user($_SESSION['found_user']);
+        $posts = $post->get_posts_on_other_user($_SESSION['thebook_userid']);
         
         if($posts){
             foreach($posts as $p){
                 $image = '';
-                
                 $data_user = $user->get_data($p['guestid']);
-
                 $avatar_user = get_profile_image($data_user['profile_image'],$data_user['gender']);
 
                 if(file_exists($p["image"])){
                     $image = '<img src=' . $p["image"] . ' />';
                 }
-
                 echo '<div id="postBackground">
                         <div id="postArea">
-                            <div id="userBar">
-                                <img id="userImg" src="../images/' . $avatar_user . '">
-                                <div id="userName">' . $data_user["first_name"] . " " . $data_user["last_name"] . '</div>
-                                <div id="date">' . $p["date"] .'</div>
-                            </div>
+                            <form method="post">
+                                <div id="userBar">
+                                    <input type="image" id="userImg" alt="Submit" src="../images/' . $avatar_user . '">
+                                    <input type="hidden" name="move_to_friend_page" value="'.$data_user['userid'].'">
+                                    <div id="userName">' . $data_user["first_name"] . " " . $data_user["last_name"] . '</div>
+                                    <div id="date">' . $p["date"] .'</div>
+                                </div>
+                            </form>
+                      
                             <div id="postContent">    
                                 <div id="post">' . $p["post"] . '</div>
                                 <br><br>
@@ -133,6 +131,7 @@
 
     $profile_image = get_profile_image($user_data['profile_image'],$gender_user);
     $background_image = get_background_image($user_data['cover_image']);
+
     $_SESSION['profile_image'] = $profile_image;        // pass value to topbar in other pages
 
 ?>

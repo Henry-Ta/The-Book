@@ -78,16 +78,19 @@
     }
 
     function get_posts(){
-        $post = new Post();
+        global $post;
+        global $user;
         $posts = $post->get_posts($_SESSION['found_user']);
 
         if($posts){
             foreach($posts as $p){
-                $user = new User();
+                $image = '';
                 $data_user = $user->get_data($p['userid']);
-
                 $avatar_user = get_profile_image($data_user['profile_image'],$data_user['gender']);
 
+                if(file_exists($p["image"])){
+                    $image = '<img src=' . $p["image"] . ' />';
+                }
                 echo '<div id="postBackground">
                         <div id="postArea">
                             <div id="userBar">
@@ -96,9 +99,11 @@
                                 <div id="date">' . $p["date"] .'</div>
                             </div>
                             <div id="postContent">
-                            ' . $p["post"] . '
-                            <br><br>
-                            <a href="">Like</a> . <a href="">Comment</a>
+                                <div id="post">' . $p["post"] . '</div>
+                                <br><br>
+                                <div id="image">' . $image .'</div>
+                                <br><br>
+                                <a href="">Like</a> . <a href="">Comment</a>
                             </div>
                         </div>
                     </div> ';
@@ -114,22 +119,22 @@
         if($posts){
             foreach($posts as $p){
                 $image = '';
-                
                 $data_user = $user->get_data($p['guestid']);
-
                 $avatar_user = get_profile_image($data_user['profile_image'],$data_user['gender']);
 
                 if(file_exists($p["image"])){
                     $image = '<img src=' . $p["image"] . ' />';
                 }
-
                 echo '<div id="postBackground">
                         <div id="postArea">
-                            <div id="userBar">
-                                <img id="userImg" src="../images/' . $avatar_user . '">
-                                <div id="userName">' . $data_user["first_name"] . " " . $data_user["last_name"] . '</div>
-                                <div id="date">' . $p["date"] .'</div>
-                            </div>
+                            <form method="post">
+                                <div id="userBar">
+                                    <input type="image" id="userImg" alt="Submit" src="../images/' . $avatar_user . '">
+                                    <input type="hidden" name="move_to_friend_page" value="'.$data_user['userid'].'">
+                                    <div id="userName">' . $data_user["first_name"] . " " . $data_user["last_name"] . '</div>
+                                    <div id="date">' . $p["date"] .'</div>
+                                </div>
+                            </form>
                             <div id="postContent">    
                                 <div id="post">' . $p["post"] . '</div>
                                 <br><br>
@@ -239,8 +244,9 @@
                 </form>
 
                 <?php
-                    get_posts_from_guest();
                     get_posts();  
+                    get_posts_from_guest();
+                    
                 ?>
 
             </div>

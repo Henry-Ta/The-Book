@@ -17,18 +17,18 @@
         $result = $signup->validate();
 
         if($signup->valid){
+            $first_name     = $_POST['first_name'];
+            $last_name      = $_POST['last_name'];
+            $gender         = $_POST['gender'];
+            $email          = $_POST['email'];
+            $password       = $_POST['password'];
+            $month_birth    = $_POST['month_birth'];
+            $day_birth      = $_POST['day_birth'];
+            $year_birth     = $_POST['year_birth'];
+
             header("Location: login.php");
             die;
         }
-
-        $first_name     = $_POST['first_name'];
-        $last_name      = $_POST['last_name'];
-        $gender         = $_POST['gender'];
-        $email          = $_POST['email'];
-        $password       = $_POST['password'];
-        $month_birth    = $_POST['month_birth'];
-        $day_birth      = $_POST['day_birth'];
-        $year_birth     = $_POST['year_birth'];
     }
 
 ?>

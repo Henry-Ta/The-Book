@@ -13,13 +13,15 @@
         $result = $login->validate();
 
         if($login->valid){
+            # to save input, in case we need to update to check something more
+            $email          = $_POST['email'];
+            $password       = $_POST['password'];
+            
             header("Location: profile.php");
             die;    
         }
 
-        # to save input, in case we need to update to check something more
-        $email          = $_POST['email'];
-        $password       = $_POST['password'];
+        
     }
 
 ?>

@@ -44,6 +44,20 @@
                 die;
             }
         }
+
+        // move to other user page
+        if(isset($_POST['move_to_friend_page'])){
+            // Click on friend image in Friend List and move to their page
+            // Using image button to submit and hidden form to take userid
+            if($_POST['move_to_friend_page'] != $_SESSION['thebook_userid']){
+                $_SESSION['found_user'] = $_POST['move_to_friend_page'];
+                header("Location: other_user_profile.php");
+                die;
+            }else{
+                header("Location: profile.php");
+                die;
+            }  
+        }
     }
 
     // get post
@@ -98,7 +112,6 @@
                 if($posts){
                     foreach($posts as $p){
                         $image = '';
-                        
                         $avatar_user = get_profile_image($f['profile_image'],$f['gender']);
         
                         if(file_exists($p["image"])){
@@ -107,11 +120,14 @@
         
                         echo '<div id="postBackground">
                                 <div id="postArea">
-                                    <div id="userBar">
-                                        <img id="userImg" src="../images/' . $avatar_user . '">
-                                        <div id="userName">' . $f["first_name"] . " " . $f["last_name"] . '</div>
-                                        <div id="date">' . $p["date"] .'</div>
-                                    </div>
+                                    <form method="post">
+                                        <div id="userBar">
+                                            <input type="image" id="userImg" alt="Submit" src="../images/' . $avatar_user . '">
+                                            <input type="hidden" name="move_to_friend_page" value="'.$f['userid'].'">
+                                            <div id="userName">' . $f["first_name"] . " " . $f["last_name"] . '</div>
+                                            <div id="date">' . $p["date"] .'</div>
+                                        </div>
+                                    </form>
                                     <div id="postContent">    
                                         <div id="post">' . $p["post"] . '</div>
                                         <br><br>
