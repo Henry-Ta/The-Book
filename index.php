@@ -1,1 +1,1 @@
-<?php echo "hello";?>
+<?php include("pages/signup.php");?>
