@@ -1,6 +1,6 @@
 <?php
-    include("../classes/connect.php");
-    include("../classes/signup.php");
+    include("classes/connect.php");
+    include("classes/signup.php");
 
     $first_name     = "";
     $last_name      = "";
@@ -41,13 +41,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign Up for Thebook | Thebook</title>
-    <link rel="stylesheet" href="../styles/style1.css">
+    <link rel="stylesheet" href="styles/style1.css">
 </head>
 <body>
     <header>
         <div id="headerSignup">
             <div id="title">thebook </div>
-            <div id="login"><a href="login.php">Log In</a></div>
+            <div id="login"><a href="pages/login.php">Log In</a></div>
         </div>
     </header>
     <main>
