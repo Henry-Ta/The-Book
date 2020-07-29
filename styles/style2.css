@@ -112,33 +112,60 @@ header{
         display: grid;
         grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
         align-items: center;
+        justify-content: center;
 
         font-size: 21px;
         font-weight: bold;
+        border-top-style: solid;
+        border-width: 1px;
+        text-align: center;
+        height: 50px;
+
+        padding-top:4px;
+        padding-bottom:14px;
+    }
+    #menuButtons a{
+        text-decoration: none;
+        color: rgb(101,103,124);
     }
     #menuButtons #timeline{
         grid-column: 1;
         grid-row: 1;
+        height:50px;
+
+        padding-top: 10px;
     }
+
     #menuButtons #about{
         grid-column: 2;
         grid-row: 1;
+        height:50px;
+
+        padding-top: 10px;
     }
     #menuButtons #friends{
         grid-column: 3;
         grid-row: 1;
+        height:50px;
+        padding-top: 10px;
     }
     #menuButtons #photos{
         grid-column: 4;
         grid-row: 1;
+        height:50px;
+        padding-top: 10px;
     }
     #menuButtons #settings{
         grid-column: 5;
         grid-row: 1;
+        height:50px;
+        padding-top: 10px;
     }
     #menuButtons #timeline:hover, #about:hover, #friends:hover, #photos:hover, #settings:hover{
-        color: rgb(24, 118, 242);
-        border-bottom: solid 2px rgb(24, 118, 242);
+        background-color: rgb(242, 242, 242);
+        border-radius: 15px;
+        padding-top: 10px;
+
     }
 
     #profileName {

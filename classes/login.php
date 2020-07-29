@@ -16,7 +16,8 @@
 
             if($result){
                 $row = $result[0];      # first row
-                if($password == $row['password']){
+                //if($password == $row['password']){
+                if(password_verify($password, $row['password'])){       // verify password hash
                     $this->valid = true;
                     $this->error[0] = '';
                     $this->error[1] = '';

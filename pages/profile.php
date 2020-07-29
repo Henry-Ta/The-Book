@@ -166,10 +166,10 @@
                 <br>
                 <div id="menuButtons">
                     <div id="timeline"><a href="timeline.php">Timeline</a></div> 
-                    <div id="about">About</div> 
-                    <div id="friends">Friends</div> 
-                    <div id="photos">Photos</div> 
-                    <div id="settings">Settings</div>
+                    <div id="about"><a href="about.php">About</a></div> 
+                    <div id="friends"><a href="friends.php">Friends</a></div> 
+                    <div id="photos"><a href="documentation.php">Documentation<a></div> 
+                    <div id="settings"><a href="sources.php">Sources</a></div>
                 </div>
             </div>
         </div>
