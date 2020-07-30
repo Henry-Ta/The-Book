@@ -38,8 +38,8 @@
 <body>
     <header>
         <div id="headerLogin">
-            <div id="title">thebook </div>
-            <div id="signup"><a href="signup.php">Sign Up</a></div>
+            <div id="title"><a href="timeline.php">thebook</a> </div>
+            <div id="signup"><a href="../index.php">Sign Up</a></div>
         </div>
     </header>
     <main>
@@ -62,7 +62,7 @@
 
                 <div id="btn"><input type="submit" id="buttonLogin" value="Log In"></div>
                 <div id="or">-------------------------------   or   -------------------------------</div>
-                <div id="signup2"><a href="signup.php">Create New Account</a></div>
+                <div id="signup2"><a href="../index.php">Create New Account</a></div>
             </form>
             
         </div>

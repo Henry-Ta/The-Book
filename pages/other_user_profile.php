@@ -184,7 +184,6 @@
     <link rel="stylesheet" href="../styles/style2.css">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script type="text/javascript" src="drop_down_topBar.js"></script>
 </head>
 <body>
     <header>
@@ -246,7 +245,6 @@
                 <?php
                     get_posts();  
                     get_posts_from_guest();
-                    
                 ?>
 
             </div>
