@@ -1,10 +1,10 @@
 <?php
 
     class Database {
-        private $host = "localhost";
-        private $username = "root";
-        private $password = "";
-        private $db = "thebook_db";
+        private $host = "us-cdbr-east-02.cleardb.com";
+        private $username = "b2a6f15ea9dd27";
+        private $password = "0a885a6c";
+        private $db = "heroku_13d368091f8d497";
 
         function connect(){
             $connection = mysqli_connect($this->host, $this->username, $this->password, $this->db);
