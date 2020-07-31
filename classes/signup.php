@@ -116,7 +116,8 @@
             $gender = $this->get_gender();
             
             $email          = $_POST['email'];
-            $password       = password_hash($_POST['password'],PASSWORD_BCRYPT);        //hash password
+            //$password       = password_hash($_POST['password'],PASSWORD_BCRYPT);        //hash password
+            $password       = $_POST['password'];
             $month_birth    = $_POST['month_birth'];
             $day_birth      = $_POST['day_birth'];
             $year_birth     = $_POST['year_birth'];
