@@ -11,7 +11,7 @@
     $user_data = $login->check_login($_SESSION['thebook_userid']);
 
     if($_SERVER['REQUEST_METHOD']=='POST'){
-        if(isset($_FILES['file']['name']) && $_FILES['file']['name']!="" && $_FILES['file']['type']=='image/jpeg'){
+        if(isset($_FILES['file']) && $_FILES['file']['name']!="" && $_FILES['file']['type']=='image/jpeg'){
 
             $files_location = "../uploads/cover_photos/" . $_FILES['file']['name'];
             move_uploaded_file($_FILES['file']['tmp_name'],$files_location); // change location of default destination when uploading
